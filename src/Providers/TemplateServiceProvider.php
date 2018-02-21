@@ -1,11 +1,11 @@
 <?php
-namespace CeresCustom\Providers;
+namespace Ceres\Providers;
 
 
-use CeresCustom\Caching\HomepageCacheSettings;
-use CeresCustom\Caching\NavigationCacheSettings;
-use CeresCustom\Caching\SideNavigationCacheSettings;
-use CeresCustom\Extensions\TwigStyleScriptTagFilter;
+use Ceres\Caching\HomepageCacheSettings;
+use Ceres\Caching\NavigationCacheSettings;
+use Ceres\Caching\SideNavigationCacheSettings;
+use Ceres\Extensions\TwigStyleScriptTagFilter;
 use IO\Extensions\Functions\Partial;
 use IO\Helper\CategoryKey;
 use IO\Helper\CategoryMap;
@@ -62,29 +62,29 @@ class TemplateServiceProvider extends ServiceProvider
         $twig->addExtension(TwigStyleScriptTagFilter::class);
 
         $eventDispatcher->listen('IO.tpl.*', function (TemplateContainer $templateContainer) {
-                $templateContainer->setTemplate('CeresCustom::' . self::$templateKeyToViewMap[$templateContainer->getTemplateKey()]);
+                $templateContainer->setTemplate('Ceres::' . self::$templateKeyToViewMap[$templateContainer->getTemplateKey()]);
 
         }, self::EVENT_LISTENER_PRIORITY);
 
         // provide mapped category IDs - DEPRECATED?
         $eventDispatcher->listen('init.categories', function (CategoryMap $categoryMap) use (&$config) {
             $categoryMap->setCategoryMap(array(
-                CategoryKey::HOME => $config->get("CeresCustom.global.category.home"),
-                CategoryKey::PAGE_NOT_FOUND => $config->get("CeresCustom.global.category.page_not_found"),
-                CategoryKey::ITEM_NOT_FOUND => $config->get("CeresCustom.global.category.item_not_found")
+                CategoryKey::HOME => $config->get("Ceres.global.category.home"),
+                CategoryKey::PAGE_NOT_FOUND => $config->get("Ceres.global.category.page_not_found"),
+                CategoryKey::ITEM_NOT_FOUND => $config->get("Ceres.global.category.item_not_found")
             ));
 
         }, self::EVENT_LISTENER_PRIORITY);
 
         $eventDispatcher->listen('IO.init.templates', function (Partial $partial){
 
-            pluginApp(Container::class)->register('CeresCustom::PageDesign.Partials.Header.NavigationList.twig', NavigationCacheSettings::class);
-            pluginApp(Container::class)->register('CeresCustom::PageDesign.Partials.Header.SideNavigation.twig', SideNavigationCacheSettings::class);
+            pluginApp(Container::class)->register('Ceres::PageDesign.Partials.Header.NavigationList.twig', NavigationCacheSettings::class);
+            pluginApp(Container::class)->register('Ceres::PageDesign.Partials.Header.SideNavigation.twig', SideNavigationCacheSettings::class);
 
-            $partial->set('head', 'CeresCustom::PageDesign.Partials.Head');
-            $partial->set('header', 'CeresCustom::PageDesign.Partials.Header.Header');
-            $partial->set('footer', 'CeresCustom::PageDesign.Partials.Footer');
-            $partial->set('page-design', 'CeresCustom::PageDesign.PageDesign');
+            $partial->set('head', 'Ceres::PageDesign.Partials.Head');
+            $partial->set('header', 'Ceres::PageDesign.Partials.Header.Header');
+            $partial->set('footer', 'Ceres::PageDesign.Partials.Footer');
+            $partial->set('page-design', 'Ceres::PageDesign.PageDesign');
 
         }, self::EVENT_LISTENER_PRIORITY);
     }

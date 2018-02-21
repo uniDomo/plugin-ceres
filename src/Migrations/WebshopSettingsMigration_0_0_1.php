@@ -1,6 +1,6 @@
 <?php
 
-namespace CeresCustom\Migrations;
+namespace Ceres\Migrations;
 
 use IO\Services\WebstoreConfigurationService;
 use Plenty\Modules\Plugin\Models\Plugin;
@@ -35,7 +35,7 @@ class WebshopSettingsMigration_0_0_1
     
             /** @var PluginRepositoryContract $pluginRepo */
             $pluginRepo = pluginApp(PluginRepositoryContract::class);
-            $pluginResult = $pluginRepo->searchPlugins(['name' => 'CeresCustom'], 1)->getResult();
+            $pluginResult = $pluginRepo->searchPlugins(['name' => 'Ceres'], 1)->getResult();
             $plugin = $pluginResult[0];
     
             if($plugin instanceof Plugin)

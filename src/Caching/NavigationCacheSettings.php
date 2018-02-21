@@ -1,5 +1,5 @@
 <?php
-namespace CeresCustom\Caching;
+namespace Ceres\Caching;
 
 use IO\Services\ContentCaching\Contracts\CachingSettings;
 
